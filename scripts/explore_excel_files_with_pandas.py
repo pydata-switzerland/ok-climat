@@ -1,5 +1,7 @@
 import pandas as pd 
 import time
+import argparse 
+
 
 # Start time
 t1 = time.time()
@@ -7,6 +9,7 @@ t1 = time.time()
 # Load excel file 
 excel_file_1 = pd.ExcelFile("../data/exp_subventions_20251203.xlsx")
 excel_file_2 = pd.ExcelFile("../data/exp_subventions_20251213.xlsx")
+excel_file_2 = pd.ExcelFile("../exp_subventions_20260317.xlsx")
 
 # Print sheet names
 print(f"\nFile 1, excel sheet names : \n{excel_file_1.sheet_names}\n")
@@ -99,7 +102,7 @@ def print_each_row_for_column(column_name, df_name, dict_sheet, rowprint=False, 
 				print(f"{row}")
 
 
-# 	print(f"Table {df_name} there are {len(df[column_name])} rows in column {column_name} -> unique rows are : {len(df[column_name].unique())}")
+	print(f"Table {df_name} there are {len(df[column_name])} rows in column {column_name} -> unique rows are : {len(df[column_name].unique())}")
 
 # #-----------------------------
 
@@ -121,27 +124,30 @@ dict_sheet = sheets2_dict
 # column_name = "available_for"
 # print_each_row_for_column(column_name, df_name, dict_sheet)
 
-# df_name = "subventions"
-# print(f"\nTABLE '{df_name}'")
+df_name = "subventions"
+print(f"\nTABLE '{df_name}'")
 
-# column_name = "subv_id"
-# print_each_row_for_column(column_name, df_name, dict_sheet)
-# column_name = "contributor_id"
-# print_each_row_for_column(column_name, df_name, dict_sheet)
-# column_name = "language"
-# print_each_row_for_column(column_name, df_name, dict_sheet)
-# column_name = "subv_name"
-# print_each_row_for_column(column_name, df_name, dict_sheet)
-# column_name = "subv_desc"
-# print_each_row_for_column(column_name, df_name, dict_sheet)
-# column_name = "site_url"
-# print_each_row_for_column(column_name, df_name, dict_sheet)
-# column_name = "type_subv"
-# print_each_row_for_column(column_name, df_name, dict_sheet)
+column_name = "subv_id"
+print_each_row_for_column(column_name, df_name, dict_sheet)
+column_name = "contributor_id"
+print_each_row_for_column(column_name, df_name, dict_sheet)
+column_name = "language"
+print_each_row_for_column(column_name, df_name, dict_sheet)
+column_name = "subv_name"
+print_each_row_for_column(column_name, df_name, dict_sheet)
+column_name = "subv_desc"
+print_each_row_for_column(column_name, df_name, dict_sheet)
+column_name = "site_url"
+print_each_row_for_column(column_name, df_name, dict_sheet)
+column_name = "type_subv"
+print_each_row_for_column(column_name, df_name, dict_sheet)
 
 # print("\n-------------------------------------------\n ")
 df_name = "subventions"
 column_name = "type_subv"
+print_each_row_for_column(column_name, df_name, dict_sheet, True, True)
+print(" ")
+column_name = "subv_id"
 print_each_row_for_column(column_name, df_name, dict_sheet, True, True)
 # print("\n-------------------------------------------\n ")
 # df_name = "indicators"
@@ -185,6 +191,55 @@ for c,d in zip(result["kt_abrev"],result["subv_desc"]):
 	print(f"\n{c} : d = {d}'")
 
 #=======================================================
+
+print("\n====================================================\n")
+
+dict_sheet = sheets2_dict
+
+df_subventions = dict_sheet["subventions"]
+df_subv_contrib = dict_sheet["subv_contrib"]
+df_cantons = dict_sheet["cantons"]
+
+print("\ndf_cantons",df_cantons)
+
+print("\ndf_subventions",df_subventions)
+
+merged_1 = pd.merge(df_cantons, df_subv_contrib, on="la_id", how="inner")
+
+print("\nmerged_1 = \n",merged_1)
+
+merged_2 = pd.merge(merged_1, df_subventions, on="contributor_id", how="inner")
+
+print("\nmerged_2 = \n", merged_2[merged_2["kt_abrev"] == "ZH"][["kt_abrev", "site_url"]])
+
+print("\n====================================================\n")
+
+dict_sheet = sheets2_dict
+
+df_subventions = dict_sheet["subventions"]
+df_subv_contrib = dict_sheet["subv_contrib"]
+df_cantons = dict_sheet["municipalities"]
+
+print("\ndf_cantons",df_cantons)
+print("\n&& len(df_cantons)", len(df_cantons))
+
+print("\ndf_subventions",df_subventions)
+
+merged_1 = pd.merge(df_cantons, df_subv_contrib, on="la_id", how="inner")
+
+print("\nmerged_1 = \n",merged_1)
+
+df_subventions_PV = df_subventions[df_subventions["type_subv"]=="PV"]
+
+merged_2 = pd.merge(merged_1, df_subventions_PV, on="contributor_id", how="inner")
+
+print("\nmerged_2 = \n",merged_2)
+
+print("LEN merged_2=",len(merged_2))
+
+print("\nmerged_2 = \n", merged_2[merged_2["name_mun"] == "Kloten"][["name_mun", "site_url","type_subv"]])
+
+#==============================
 
 # End time
 t2 = time.time()
