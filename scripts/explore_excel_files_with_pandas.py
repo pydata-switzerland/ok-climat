@@ -163,7 +163,7 @@ df_subv_contrib = dict_sheet["subv_contrib"]
 df_cantons = dict_sheet["cantons"]
 
 # In df_subventions get 'contributor_id' of all rows where 'type_subv'=="PV"
-pv_subv = df_subventions[df_subventions["type_subv"] == "PV"]
+pv_subv = df_subventions[(df_subventions["type_subv"] == "PV") | (df_subventions["type_subv"] == "PV-EauCd")]
 contributor_ids = pv_subv["contributor_id"]
 print(f"\n{contributor_ids}")
 
@@ -184,66 +184,105 @@ final = pd.merge(merged, pv_cantons, on="la_id", how="inner")
 result = final[["type_subv", "base_value","kt_abrev", "subv_desc"]]
 print("\nRESULT:")
 print(result)
+print("\nlen(result)", len(result))
 
 print(" ")
 for c,d in zip(result["kt_abrev"],result["subv_desc"]):
 
 	print(f"\n{c} : d = {d}'")
 
-#=======================================================
+# # #=======================================================
 
-print("\n====================================================\n")
+# print("\n====================================================\n")
 
-dict_sheet = sheets2_dict
+# dict_sheet = sheets2_dict
 
-df_subventions = dict_sheet["subventions"]
-df_subv_contrib = dict_sheet["subv_contrib"]
-df_cantons = dict_sheet["cantons"]
+# df_subventions = dict_sheet["subventions"]
+# df_subv_contrib = dict_sheet["subv_contrib"]
+# df_cantons = dict_sheet["cantons"]
 
-print("\ndf_cantons",df_cantons)
+# # In df_subventions get 'contributor_id' of all rows where 'type_subv'=="PV"
+# pv_subv = df_subventions
+# contributor_ids = pv_subv["contributor_id"]
 
-print("\ndf_subventions",df_subventions)
+# # In df_subv_contrib get the 'la_id' of the corresponding 'contributor_id' (from before)
+# pv_contrib = df_subv_contrib[df_subv_contrib["contributor_id"].isin(contributor_ids)]
+# la_ids = pv_contrib["la_id"]
 
-merged_1 = pd.merge(df_cantons, df_subv_contrib, on="la_id", how="inner")
+# # In df_cantons get the 'kt_abrev' of the corresponding 'la_id' (from before)
+# pv_cantons = df_cantons[df_cantons["la_id"].isin(la_ids)]
 
-print("\nmerged_1 = \n",merged_1)
+# # Merge pv_subv with pv_contrib on contributor_id
+# merged = pd.merge(pv_subv, pv_contrib, on="contributor_id", how="inner")
 
-merged_2 = pd.merge(merged_1, df_subventions, on="contributor_id", how="inner")
+# # Merge with pv_cantons on la_id
+# final = pd.merge(merged, pv_cantons, on="la_id", how="inner")
 
-print("\nmerged_2 = \n", merged_2[merged_2["kt_abrev"] == "ZH"][["kt_abrev", "site_url"]])
+# # Select desired columns
+# result = final[["type_subv", "base_value","kt_abrev", "subv_desc", "site_url"]].sort_values(by="kt_abrev")
+# print("\nRESULT:")
+# print(result)
+# print("\nlen(result)", len(result))
 
-print("\n====================================================\n")
+# print("Start running through joined data frame: ")
+# for c,d,w in zip(result["kt_abrev"],result["type_subv"],result["site_url"]):
 
-dict_sheet = sheets2_dict
+# 	print(f"\n{c} : sub = {d} ({w})' ")
 
-df_subventions = dict_sheet["subventions"]
-df_subv_contrib = dict_sheet["subv_contrib"]
-df_cantons = dict_sheet["municipalities"]
+# #=======================================================
 
-print("\ndf_cantons",df_cantons)
-print("\n&& len(df_cantons)", len(df_cantons))
+# print("\n====================================================\n")
 
-print("\ndf_subventions",df_subventions)
+# dict_sheet = sheets2_dict
 
-merged_1 = pd.merge(df_cantons, df_subv_contrib, on="la_id", how="inner")
+# df_subventions = dict_sheet["subventions"]
+# df_subv_contrib = dict_sheet["subv_contrib"]
+# df_cantons = dict_sheet["cantons"]
 
-print("\nmerged_1 = \n",merged_1)
+# print("\ndf_cantons",df_cantons)
 
-df_subventions_PV = df_subventions[df_subventions["type_subv"]=="PV"]
+# print("\ndf_subventions",df_subventions)
 
-merged_2 = pd.merge(merged_1, df_subventions_PV, on="contributor_id", how="inner")
+# merged_1 = pd.merge(df_cantons, df_subv_contrib, on="la_id", how="inner")
 
-print("\nmerged_2 = \n",merged_2)
+# print("\nmerged_1 = \n",merged_1)
 
-print("LEN merged_2=",len(merged_2))
+# merged_2 = pd.merge(merged_1, df_subventions, on="contributor_id", how="inner")
 
-print("\nmerged_2 = \n", merged_2[merged_2["name_mun"] == "Kloten"][["name_mun", "site_url","type_subv"]])
+# print("\nmerged_2 = \n", merged_2[merged_2["kt_abrev"] == "ZH"][["kt_abrev", "site_url"]])
 
-#==============================
+# print("\n====================================================\n")
 
-# End time
-t2 = time.time()
+# dict_sheet = sheets2_dict
 
-# Run time in seconds
-t_diff = t2-t1
-print(f"\nRun time = {t_diff:0f} s\n")
+# df_subventions = dict_sheet["subventions"]
+# df_subv_contrib = dict_sheet["subv_contrib"]
+# df_cantons = dict_sheet["municipalities"]
+
+# print("\ndf_cantons",df_cantons)
+# print("\n&& len(df_cantons)", len(df_cantons))
+
+# print("\ndf_subventions",df_subventions)
+
+# merged_1 = pd.merge(df_cantons, df_subv_contrib, on="la_id", how="inner")
+
+# print("\nmerged_1 = \n",merged_1)
+
+# df_subventions_PV = df_subventions[df_subventions["type_subv"]=="PV"]
+
+# merged_2 = pd.merge(merged_1, df_subventions_PV, on="contributor_id", how="inner")
+
+# print("\nmerged_2 = \n",merged_2)
+
+# print("LEN merged_2=",len(merged_2))
+
+# print("\nmerged_2 = \n", merged_2[merged_2["name_mun"] == "Kloten"][["name_mun", "site_url","type_subv"]])
+
+# #==============================
+
+# # End time
+# t2 = time.time()
+
+# # Run time in seconds
+# t_diff = t2-t1
+# print(f"\nRun time = {t_diff:0f} s\n")
