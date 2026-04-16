@@ -1,0 +1,10 @@
+name: ok_climat_env
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - requests
+  - selenium
+  - pip
+  - pip:
+    - selectolax
