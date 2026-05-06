@@ -3,6 +3,7 @@ channels:
   - defaults
 dependencies:
   - python=3.10
+  - pandas
   - requests
   - selenium
   - pip
