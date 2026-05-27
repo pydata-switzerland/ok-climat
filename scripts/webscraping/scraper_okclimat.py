@@ -303,38 +303,305 @@ def scrape_with_keywords(url, keywords):
         print(f"Error scraping {url}: {e}")
         return None
 
+def find_pdf_links_on_page(url):
+    """
+    Visit a URL and find all PDF links on the page.
+    
+    Args:
+        url (str): The URL to scrape
+        
+    Returns:
+        list: List of PDF URLs found on the page (absolute URLs, not relative)
+    """
+    try:
+        options = Options()
+        options.add_argument("--headless")
+        driver = webdriver.Chrome(options=options)
+        driver.get(url)
+        
+        # Wait for page to load
+        time.sleep(3)
+        
+        # Find all <a> tags with href attribute
+        pdf_links = driver.find_elements(By.TAG_NAME, "a")
+        
+        pdf_urls = []
+        for link in pdf_links:
+            href = link.get_attribute("href")
+            
+            # Check if href contains .pdf
+            if href and ".pdf" in href.lower():
+                
+                # Convert relative URLs to absolute URLs
+                if href.startswith("http"):
+                    pdf_urls.append(href)
+                else:
+                    # Handle relative URLs (e.g., "/documents/file.pdf")
+                    from urllib.parse import urljoin
+                    absolute_url = urljoin(url, href)
+                    pdf_urls.append(absolute_url)
+        
+        driver.quit()
+        
+        print(f"[PDF Discovery] Found {len(pdf_urls)} PDF(s) on {url}")
+        for pdf_url in pdf_urls:
+            print(f"  - {pdf_url}")
+        
+        return pdf_urls
+        
+    except Exception as e:
+        print(f"[PDF Discovery] Error visiting {url}: {e}")
+        return []
+
+# def scrape_subsidy_page(unique_subsidies, subsidies, subsidy):
+#     """Scrape the URLs of the unique subsidies to look for PDFs and relevant information
+#     Args:
+#         unique_subsidies (dict): A dictionary containing the unique subsidies information
+#         subsidies (dict): A dictionary containing information about the subsidy types
+#         subsidy (str): The subsidy type to look for (e.g. "PV" for photovoltaic)
+#     Returns: 
+#         None
+#     """
+    
+#     # Key words to identify text concerning subsidies 
+#     keywords = subsidies[subsidy]['key_words']
+#     keywords.extend(['förder','unterstützt','subvention','finanziell','beitrag','beihilfe'])
+
+#     # Check the URLs of the unique subsidies
+#     for _ , sub_info in unique_subsidies.items():
+        
+#         subsidy_name = sub_info["subsidy_name"]
+#         url = sub_info["site_url"]  
+
+#         print(f"\n{'='*60}")
+#         print(f"Checking subsidy: '{subsidy_name}'")
+#         print(f"URL: {url}")
+#         print(f"{'='*60}")
+
+#         # STEP 1: Look for PDFs on the site
+#         print(f"\n[STEP 1] Looking for PDFs on the site...")
+#         pdf_urls = find_pdf_links_on_page(url)
+        
+#         if pdf_urls:
+#             print(f"✓ Found {len(pdf_urls)} PDF(s) - these will be processed next")
+#         else:
+#             print(f"✗ No PDFs found on this page")
+
+import pdfplumber
+import requests
+from pathlib import Path
+
+def download_pdf(pdf_url, output_dir="./pdfs"):
+    """Download a PDF from URL and save locally.
+    Args:
+        pdf_url (str): Direct PDF URL
+        output_dir (str): Directory to save PDFs
+    Returns:
+        Path to downloaded PDF file, or None if download failed
+    """
+    try:
+        Path(output_dir).mkdir(exist_ok=True)
+        
+        # Download the url content (here a PDF) and stores it in a variable called response (raw bytes)
+        response = requests.get(pdf_url, timeout=10)
+        # Check if the request was successful
+        response.raise_for_status()
+        
+        # Saved PDF name based on extracted filename from URL (use last part of URL or generate a unique name if URL does not end with a filename)
+        filename = pdf_url.split("/")[-1] or f"subsidy_{int(time.time())}.pdf"
+        # Saved pdf file path
+        filepath = Path(output_dir) / filename
+        
+        # Save the PDF content to a file
+        with open(filepath, "wb") as f:
+            f.write(response.content)
+        
+        return filepath
+        
+    except Exception as e:
+        print(f"  [ERROR] Could not download PDF: {e}")
+        return None
+
+
+def extract_text_from_pdf(pdf_path):
+    """Extract all text from a PDF file.
+    Args:
+        pdf_path (Path): Path to PDF file (locally saved pdf)    
+    Returns:
+        str: Extracted text, or None if extraction failed
+    """
+    
+    try:
+        # Use pdfplumber library to open pdf 
+        with pdfplumber.open(pdf_path) as pdf:
+            # Loops through each page in the PDF, extracts the text from each page, and joins all the page texts together into a single string with newline characters in between.
+            text = "\n".join([page.extract_text() or "" for page in pdf.pages])
+        # Returns the extracted text (all pages combined as one string)
+        return text
+   
+    except Exception as e:
+        print(f"  [ERROR] Could not extract text from PDF: {e}")
+        return None
+
+
+def is_pdf_relevant(pdf_url, subsidy_keywords):
+    """Check if a PDF is relevant by downloading it and searching for subsidy keywords.
+    Args:
+        pdf_url (str): URL of the PDF to check
+        subsidy_keywords (list): Keywords related to the subsidy type (e.g., ["Fotovoltaik", "Photovoltaik", "Solar"])    
+    Returns:
+        tuple: (is_relevant: bool, pdf_path: Path or None)
+    """
+    
+    print(f"  Checking: {pdf_url.split('/')[-1]}...")
+    
+    # Download PDF
+    pdf_path = download_pdf(pdf_url)
+    if not pdf_path:
+        return False, None
+    
+    # Extract text
+    text = extract_text_from_pdf(pdf_path)
+    if not text:
+        return False, pdf_path
+    
+    # Search for subsidy keywords
+    # Convert text to lower case for case-insensitive matching
+    text_lower = text.lower()
+    # Check if any of the subsidy keywords are present in the text (also convert keywords to lower case for matching)
+    found_keywords = [kw for kw in subsidy_keywords if kw.lower() in text_lower]
+    
+    # Print found keywords 
+    if found_keywords:
+        print(f"    ✓ Relevant! Found keywords: {found_keywords}")
+        return True, pdf_path
+    else:
+        print(f"    ✗ Not relevant for this subsidy type")
+        return False, pdf_path
+
+def save_pdf_text_to_file(pdf_path, pdf_url, subsidy, canton):
+    """
+    Extract text from PDF and save it to a text file with metadata.
+    
+    Args:
+        pdf_path (Path): Path to the downloaded PDF
+        pdf_url (str): Original URL of the PDF
+        subsidy (str): Subsidy type (e.g., "PV")
+        canton (str): Canton code (e.g., "ZH")
+    
+    Returns:
+        Path to saved text file, or None if failed
+    """
+    try:
+        # Create texts directory if it doesn't exist
+        texts_dir = Path("./texts")
+        texts_dir.mkdir(exist_ok=True)
+        
+        # Extract text from PDF
+        text = extract_text_from_pdf(pdf_path)
+        if not text:
+            print(f"    ✗ Could not extract text from PDF")
+            return None
+        
+        # Generate output filename (same as PDF but with .txt extension)
+        pdf_filename = pdf_path.name
+        txt_filename = pdf_filename.replace(".pdf", ".txt").replace(".PDF", ".txt")
+        txt_path = texts_dir / txt_filename
+        
+        # Create metadata header
+        metadata = f"""================================================================================
+EXTRACTED PDF TEXT WITH METADATA
+================================================================================
+
+PDF URL: {pdf_url}
+PDF Path: {pdf_path}
+Subsidy Type: {subsidy}
+Canton: {canton}
+Extracted at: {time.strftime('%Y-%m-%d %H:%M:%S')}
+
+================================================================================
+TEXT CONTENT
+================================================================================
+
+"""
+        
+        # Write metadata + text to file
+        with open(txt_path, "w", encoding="utf-8") as f:
+            f.write(metadata)
+            f.write(text)
+        
+        print(f"    ✓ Saved text to: {txt_path}")
+        return txt_path
+        
+    except Exception as e:
+        print(f"    ✗ Error saving text: {e}")
+        return None
 
 def scrape_subsidy_page(unique_subsidies, subsidies, subsidy):
-    """Scrape the URLs of the unique subsidies to see if they contain relevant information using keyword matching
+    """Scrape the URLs of the unique subsidies to look for PDFs and relevant information. 
     Args:
-        unique_subsidies (dict): A dictionary containing the unique subsidies information, with keys as tuples of (subsidy_name, site_url) and values as the subsidy information
-        subsidies (dict): A dictionary containing information about the subsidy types, including key words to look for in the subsidy name
-        subsidy (str): The subsidy type to look for (e.g. "PV" for photovoltaic)
+        unique_subsidies (dict): Dictionary containing subsidy information
+        subsidies (dict): Dictionary with subsidy type details
+        subsidy (str): The subsidy type to look for (e.g. "PV")    
     Returns: 
         None
     """
     
-    # Key words to identify text concerning subsidies 
-    keywords = subsidies[subsidy]['key_words']
-    keywords.extend(['förder','unterstützt','subvention','finanziell','beitrag','beihilfe'])
-
-    # Check the URLs of the unique subsidies to see if they contain relevant information using keyword matching
+    # Keywords specific to the subsidy type (used to filter PDFs)
+    subsidy_keywords = subsidies[subsidy]['key_words']
+    
+    # Check each unique subsidy
     for _ , sub_info in unique_subsidies.items():
         
         subsidy_name = sub_info["subsidy_name"]
-        url = sub_info["site_url"]  
+        url = sub_info["site_url"]
+        canton = "ZH"  # ← Add canton parameter (you might want to pass this as argument)
 
-        print(f"\nChecking URL '{url}' for subsidy '{subsidy_name}'...")
+        print(f"\n{'='*60}")
+        print(f"Checking subsidy: '{subsidy_name}'")
+        print(f"URL: {url}")
+        print(f"{'='*60}")
 
-        # Scrape the URL and check for keywords
-        found_keywords_dict = scrape_with_keywords(url, keywords)
+        # STEP 1: Look for all PDFs on the site
+        print(f"\n[STEP 1] Discovering PDFs on the website...")
+        all_pdf_urls = find_pdf_links_on_page(url)
         
-        if found_keywords_dict:
-            print(f"  Found these keywords: {found_keywords_dict['found_keywords']}\n")
-            print(f"  Page text preview: {found_keywords_dict['page_text_preview']}\n")
+        if not all_pdf_urls:
+            print(f"✗ No PDFs found on this page")
+            continue
+        
+        print(f"✓ Found {len(all_pdf_urls)} PDF(s) total")
+        
+        # STEP 2: Filter PDFs by checking their content for subsidy keywords
+        print(f"\n[STEP 2] Filtering PDFs by content (looking for: {subsidy_keywords})...")
+        relevant_pdfs = []
+        
+        for pdf_url in all_pdf_urls:
+            is_relevant, pdf_path = is_pdf_relevant(pdf_url, subsidy_keywords)
+            if is_relevant:
+                relevant_pdfs.append((pdf_url, pdf_path))
+        
+        print(f"\n[RESULT] {len(relevant_pdfs)} out of {len(all_pdf_urls)} PDFs are relevant")
+        
+        if relevant_pdfs:
+            print(f"\nRelevant PDFs:")
+            for pdf_url, pdf_path in relevant_pdfs:
+                pdf_name = pdf_url.split('/')[-1]
+                print(f"   ✓ {pdf_name}")
+                print(f"    Local path: {pdf_path}")
+                
+                # NEW: Save extracted text to file with metadata
+                print(f"\n  [STEP 3] Saving extracted text...")
+                txt_path = save_pdf_text_to_file(pdf_path, pdf_url, subsidy, canton)
+                
+                if txt_path:
+                    print(f"  ✓ Text saved successfully")
+                else:
+                    print(f"  ✗ Failed to save text")
+                
+                print()
         else:
-            print(f"  No relevant keywords found..")
-
+            print(f"\n✗ No relevant PDFs found for '{subsidy_name}'\n")
 
 def main_scraper(canton, subsidy, verbose, scrape_base_page_flag, scrape_subsidy_page_flag):
     """Main function to run the web scraping process for a specific canton and subsidy type
