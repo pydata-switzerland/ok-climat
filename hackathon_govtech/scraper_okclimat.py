@@ -1,5 +1,3 @@
-from selectolax.lexbor import LexborHTMLParser
-import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,15 +12,24 @@ from pathlib import Path
 from urllib.parse import urljoin
 from docling.document_converter import DocumentConverter
 
+#========================================================
+# Script to scrape PV subsidy information for Swiss cantons
+
+# Things to consider for next steps:
+# If more pdfs, download in parallel and create only one request session per page 
+# Save in seperate file basic data for each sub_id, such as url-sites and url-pdfs, matching keywords, language? limited keyword list and language can be used to fucus pompt
+# if no info found, maybe don't save file, but add to basic info list such that LLM can skip it
+# Open only one browser instance per page, and keep it open while downloading all pdfs from the page, instead of opening a new instance for each pdf link (if we need to check the content of the pdfs to filter them) 
+
+#========================================================
+# Run example :
+
+# python scraper_okclimat.py --sub_id 118 --url_type_dict url_type_dict.json --keywords_dict keywords_dict.json
+
+#========================================================
 
 # Global dictionary to track file counts per sub_id
 file_counters = {}
-
-# Script to scrape PV subsidy information for Swiss cantons
-
-# Run example :
-
-# python scraper_okclimat.py --sub_key sub_1
 
 def scrape_page_for_keywords(url, keywords):
     """
@@ -50,7 +57,7 @@ def scrape_page_for_keywords(url, keywords):
         # Close the browser
         driver.quit()
 
-        return found_keywords, page_html, page_text  # Return HTML for docling
+        return found_keywords, page_html, page_text  
 
     except Exception as e:
         print(f"[Page Scraping] Error visiting {url}: {e}")
@@ -697,12 +704,3 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     main_scraper(args.sub_id, args.url_type_dict, args.keywords_dict)
-
-
-#  python run_pipeline.py -ni 0 -nf 0 --step "scraper"
-
-# Things to consider for next steps:
-# If more pdfs, download in parallel and create only one request session per page 
-# Save in seperate file basic data for each sub_id, such as url-sites and url-pdfs, matching keywords, language? limited keyword list and language can be used to fucus pompt
-# if no info found, maybe don't save file, but add to basic info list such that LLM can skip it
-# Open only one browser instance per page, and keep it open while downloading all pdfs from the page, instead of opening a new instance for each pdf link (if we need to check the content of the pdfs to filter them) 
