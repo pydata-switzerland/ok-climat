@@ -73,7 +73,7 @@ def analyze_files_for_sub_id(api_key, files, subsidy_type, keywords_file, subsid
 			}
 
 			data = {
-				"model": "google/gemini-2.5-flash-lite", # 3.1 better
+				"model": "google/gemini-3.1-flash-lite", # 3.1 better
 				"messages": [
 					{
 						"role": "user",
