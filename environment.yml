@@ -1,11 +1,39 @@
-name: ok_climat_env
+name: docling_env_2
+
 channels:
+  - conda-forge
   - defaults
+
 dependencies:
   - python=3.10
+
+  # --- core scientific stack (IMPORTANT: NumPy < 2) ---
+  - numpy=1.26.4
   - pandas
+  - scipy
+
+  # --- PDF / scraping tools ---
   - requests
-  - selenium
+  - beautifulsoup4
+  - lxml
   - pip
+
+  # --- browser automation ---
+  - selenium
+
+  # --- PDF extraction ---
   - pip:
-    - selectolax
+      - pdfplumber
+
+      # --- Docling stack (pip required, not conda) ---
+      - docling==2.26.0
+
+      # --- ML dependencies pinned for compatibility ---
+      - torch==2.2.2
+      - torchvision==0.17.2
+      - transformers<5.9
+      - accelerate
+
+      # --- safety pin (prevents NumPy 2 upgrade via pip) ---
+      - "numpy<2"
+    
