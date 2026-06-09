@@ -17,10 +17,15 @@ import time
 
 # Run example:
 
-# python run_pipeline.py -ni 0 -nf 10 --step "scraper"
-# python run_pipeline.py -ni 0 -nf 10 --step "llm"
+# Run over multiple subsidies based on index range and apply scraping and llm analysis:
 
-# python run_pipeline.py --sub_id 118 --step "scraper"
+    # python run_pipeline.py -ni 0 -nf 10 --step "scraper"
+    # python run_pipeline.py -ni 0 -nf 10 --step "llm"
+
+# Run over a spcific subsidy id and perform web scraping or llm analysis:
+
+    # python run_pipeline.py --sub_id 118 --step "scraper"
+    # python run_pipeline.py --sub_id 118 --step "llm"
 
 #===============================================
 
