@@ -24,7 +24,7 @@ from docling.document_converter import DocumentConverter
 #========================================================
 # Run example :
 
-# python scraper_okclimat.py --sub_id 118 --url_type_dict url_type_dict.json --keywords_dict keywords_dict.json
+# python scrape_subsidies.py --sub_id 118 --url_type_dict url_type_dict.json --keywords_dict keywords_dict.json
 
 #========================================================
 

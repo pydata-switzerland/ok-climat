@@ -44,7 +44,7 @@ def load_url_type_dict(url_type_dict_path="url_type_dict.json"):
 def run_scraper_for_sub_id(sub_id, url_type_dict_path="url_type_dict.json"):
     """Run the scraper for a given sub_id."""
     cmd = [
-        "python", "scraper_okclimat.py",
+        "python", "scrape_subsidies.py",
         "--sub_id", sub_id,
         "--url_type_dict", url_type_dict_path
     ]
@@ -54,7 +54,7 @@ def run_scraper_for_sub_id(sub_id, url_type_dict_path="url_type_dict.json"):
 def run_llm_analysis_for_sub_id(sub_id, url_type_dict_path="url_type_dict.json", keywords_file="keywords_dict.json"):
     """Run the LLM analysis for a given sub_id."""
     cmd = [
-        "python", "test_openrouter.py",
+        "python", "analyze_subsidies.py",
         "--sub_id", sub_id,
         "--url_type_dict", url_type_dict_path,
         "--keywords_file", keywords_file

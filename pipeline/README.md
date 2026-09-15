@@ -27,7 +27,7 @@ The workflow consists of two steps:
 Script:
 
 ```bash
-scraper_okclimat.py
+scrape_subsidies.py
 ```
 
 For a given subsidy ID (`sub_id`), the scraper:
@@ -57,7 +57,7 @@ texts/
 Script:
 
 ```bash
-test_openrouter.py
+analyze_subsidies.py
 ```
 
 The LLM analysis:
@@ -89,13 +89,15 @@ Example output:
 
 # Important Files
 
-| File                  | Purpose                                                 |
-| --------------------- | ------------------------------------------------------- |
-| `url_type_dict.json`  | Maps subsidy IDs to municipality URLs and subsidy types |
-| `keywords_dict.json`  | Defines keywords used to identify relevant content      |
-| `scraper_okclimat.py` | Website and PDF scraping                                |
-| `test_openrouter.py`  | LLM analysis                                            |
-| `run_pipeline.py`     | Convenience script to run the full workflow             |
+| File                          | Purpose                                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `url_type_dict.json`          | Maps subsidy IDs to municipality URLs and subsidy types                                              |
+| `keywords_dict.json`          | Defines keywords used to identify relevant content                                                   |
+| `scrape_subsidies.py`         | Website and PDF scraping                                                                              |
+| `analyze_subsidies.py`        | LLM analysis                                                                                          |
+| `run_pipeline.py`             | Convenience script to run the full workflow                                                          |
+| `combine_results.py`          | Aggregates all `results/*_analysis.json` files into `aggregated_results.csv`                         |
+| `extract_start_arguments.py`  | Builds `url_type_dict.json` from `PV examples.xlsx` (not wired into `run_pipeline.py`; run manually) |
 
 ---
 
@@ -216,7 +218,7 @@ The individual scripts are useful for debugging.
 ## Run Only the Scraper
 
 ```bash
-python scraper_okclimat.py --sub_id 118
+python scrape_subsidies.py --sub_id 118
 ```
 
 ---
@@ -224,7 +226,7 @@ python scraper_okclimat.py --sub_id 118
 ## Run Only the LLM Analysis
 
 ```bash
-python test_openrouter.py --sub_id 118
+python analyze_subsidies.py --sub_id 118
 ```
 
 Note:

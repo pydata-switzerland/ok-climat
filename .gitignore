@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# pipeline generated output
+pipeline/pdfs/
+pipeline/pdfs_old/
+pipeline/texts/
+pipeline/results/
+pipeline/aggregated_results.csv
+
+# input data not yet decided on (see README) - not committed for now
+pipeline/PV examples.xlsx
+
+# exploration generated/scratch data (exploration/ code is not maintained, see exploration/README.md)
+exploration/pdfs/
+exploration/texts/
+exploration/products.csv
+exploration/dict_ZH_PV.json
+exploration/ktzh_foerderprogramm_2026_results.json
+exploration/log_webScrabing.txt

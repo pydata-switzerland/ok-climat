@@ -198,32 +198,32 @@ if __name__ == "__main__":
 	print(f"\n✅ Analysis completed successfully. Result saved to {result_file_path}")
 
 
-# python test_openrouter.py --subsidy_file texts/thermische_solaranlagen_luzern.md --subsidy_type PV --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/thermische_solaranlagen_luzern.md --subsidy_type PV --keywords_file keywords_dict.json
 
-# python test_openrouter.py --subsidy_file texts/thermische_solaranlagen_luzern.md --subsidy_type PV-EauCd --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/thermische_solaranlagen_luzern.md --subsidy_type PV-EauCd --keywords_file keywords_dict.json
 
 
 
 #######################
 
 # sub_1 -> gets right
-# python test_openrouter.py --subsidy_file texts/sub_1_PV-EauCd_site_1779996252.md --subsidy_type PV-EauCd --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/sub_1_PV-EauCd_site_1779996252.md --subsidy_type PV-EauCd --keywords_file keywords_dict.json
 
 # sub_2 -> does not get right
-# python test_openrouter.py --subsidy_file texts/sub_2_PV_site_1779996290.md --subsidy_type PV --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/sub_2_PV_site_1779996290.md --subsidy_type PV --keywords_file keywords_dict.json
 
 # sub 3 --> gets right
-# python test_openrouter.py --subsidy_file texts/sub_3_PV_site_1779996437.md --subsidy_type PV --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/sub_3_PV_site_1779996437.md --subsidy_type PV --keywords_file keywords_dict.json
 
 # sub 4 --> gets right
-# python test_openrouter.py --subsidy_file texts/sub_4_PV_site_1779996463.md --subsidy_type PV --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/sub_4_PV_site_1779996463.md --subsidy_type PV --keywords_file keywords_dict.json
 # sub 4 --> gets right (but the same as above, so we can check consistency)
-# python test_openrouter.py --subsidy_file texts/sub_4_PV_site_1779996772.md --subsidy_type PV --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/sub_4_PV_site_1779996772.md --subsidy_type PV --keywords_file keywords_dict.json
 # sub 4 --> gets right (but the same as above, so we can check consistency)
-# python test_openrouter.py --subsidy_file texts/sub_4_PV_site_1779996796.md --subsidy_type PV --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/sub_4_PV_site_1779996796.md --subsidy_type PV --keywords_file keywords_dict.json
 # finds zero on these below
-# python test_openrouter.py --subsidy_file texts/sub_4_PV_site_1779996804.md --subsidy_type PV --keywords_file keywords_dict.json
-# python test_openrouter.py --subsidy_file texts/sub_4_PV_site_1779996811.md --subsidy_type PV --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/sub_4_PV_site_1779996804.md --subsidy_type PV --keywords_file keywords_dict.json
+# python analyze_subsidies.py --subsidy_file texts/sub_4_PV_site_1779996811.md --subsidy_type PV --keywords_file keywords_dict.json
 
 
 

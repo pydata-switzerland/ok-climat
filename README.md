@@ -4,7 +4,7 @@ This repository contains tools and experiments developed to support OK Climat's 
 
 The goal of the project is to make it easier to collect, organise, and analyse information about climate policies and initiatives at the cantonal and municipal levels in Switzerland.
 
-The code currently shared with collaborators is the prototype developed during the GovTech Hackathon in Bern (May 2026).
+The core pipeline started as a prototype developed during the GovTech Hackathon in Bern (May 2026).
 
 ## About OK Climat
 
@@ -39,22 +39,10 @@ git clone https://github.com/pydata-switzerland/ok-climat.git
 cd ok-climat
 ```
 
-The code currently being shared is located on the branch:
+The core pipeline can then be found in:
 
 ```text
-explore-webscraping-#7
-```
-
-Switch to that branch by running:
-
-```bash
-git checkout explore-webscraping-#7
-```
-
-The GovTech Hackathon prototype can then be found in:
-
-```text
-hackathon_govtech/
+pipeline/
 ```
 
 ---
@@ -114,7 +102,7 @@ conda env create -f environment.yml
 Activate it:
 
 ```bash
-conda activate ok_env
+conda activate ok_climat_env
 ```
 
 Deactivate it:
@@ -125,21 +113,27 @@ conda deactivate
 
 ---
 
-# Running the GovTech Hackathon Prototype
+# Running the Pipeline
 
 Once your environment is activated:
 
 ```bash
-cd hackathon_govtech
+cd pipeline
 ```
 
-Detailed instructions for running the prototype are available in:
+Detailed instructions for running the pipeline are available in:
 
 ```text
-hackathon_govtech/README.md
+pipeline/README.md
 ```
 
-Follow the instructions in that README to run the prototype.
+Follow the instructions in that README to run the pipeline.
+
+---
+
+# Exploration Scripts
+
+The `exploration/` folder contains early prototyping/exploration scripts written before the GovTech Hackathon while getting familiar with the project and investigating what was possible. This code is **not maintained** and is **not part of the documented pipeline** — it's kept for reference only. See `exploration/README.md` for details.
 
 ---
 
@@ -148,111 +142,9 @@ Follow the instructions in that README to run the prototype.
 ```text
 ok-climat/
 │
-├── hackathon_govtech/     # GovTech Hackathon prototype
+├── pipeline/              # Core webscraping + LLM analysis pipeline
+├── exploration/           # Early prototype/exploration scripts (not maintained)
 ├── pixi.toml             # Pixi environment definition
 ├── environment.yml       # Conda environment definition
 └── README.md             # This file
 ```
-
-
-
-<!-- #############################
-
-
-
-
-
-# OK Climat
-
-This project aims to support [OK CLIMAT](https://www.ok-klima.ch/fr) by addressing data-related challenges. Specifically, we are developing tools and workflows to make it faster and easier to retrieve and analyse data on climate policies and initiatives at the cantonal and municipal levels in Switzerland.
-
-We are collaborating with the [OK CLIMAT team](https://www.ok-klima.ch/fr/a-propos-de-nous), a partnership initiated following [Yvonne](https://www.linkedin.com/in/yvonne-winteler-b2b27426/)'s presentation at PyData Lausanne in November 2025.
-
-## Setup
-
-### Clone the Repository
-
-First, download the project to your computer. Open a terminal and run:
-
-```
-git clone [github.com](https://github.com/pydata-switzerland/ok-climat.git)
-cd ok-climat
-```
-
-If you want to work on a specific branch, e.g. ```explore-webscraping-#7``` that contains all code developed at GovTech in Bern, run:
-
-```
-git checkout explore-webscraping-#7 
-```
-
-Then you can find the code in the directory ```hackathon_govtech```
-
-### Environment 
-
-To set up the environment you can do it with pixi or with conda.
-
-### Setting up environment with pixi
-
-If you don't have Pixi installed, run:
-
-```
-curl -fsSL [pixi.sh](https://pixi.sh/install.sh) | bash
-```
-
-On Windows, use instead:
-
-```
-powershell -ExecutionPolicy ByPass -c "irm [pixi.sh](https://pixi.sh/install.ps1) | iex"
-```
-
-From the project folder you install pixi with the settings specified in pixi.toml by running:
-
-```
-pixi install
-```
-
-To activate the environment, run:
-
-```
-pixi shell
-```
-
-Now you should be able to run the scripts in this project.
-
-To deactivate the environment, run:
-
-```
-exit
-```
-
-### Setting up environment with conda
-
-Run in terminal:
-
-```bash
-conda env create -f environment.yml
-```
-
-This will automatically create a virtual environment called `ok_climat_env` with all required libraries defined in the `environment.yml` file.
-
-To activate the environment, run:
-
-```bash
-conda activate ok_env
-```
-To deactive, run:
-
-```
-conda deactivate
-```
-
-## Running the hackathon prototype
-
-To run the prototype developed during the GovTech hackathon May 28 & 29, 2026:
-
-1. From the project root, change into the prototype folder:
-```
-cd hackathon_govtech
-```
-
-2. Follow the instructions in that directory (check hackathon_govtech/README.md). It contains the exact commands to run the prototype. -->
