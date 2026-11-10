@@ -1,0 +1,80 @@
+subv_id,type_subv,contributor,langue,condition,text,url_start,subsidy_exist,expected_10kW
+118,PV-EauCd,Luzern (LU),DE,Anlagenüberwachung ,"Die Stadt Luzern unterstützt die Realisierung einer thermischen Solaranlage. Pflicht für die Förderung ist eine aktive Anlagenüberwachung (Monitoring).
+
+CHF 250.- pro kW installierte Leistung
+CHF 750.- für die aktive Anlagenüberwachung, Beitrag an das Monitoring",https://www.stadtluzern.ch/dienstleistungeninformation/6259,yes,3250.0
+522,PV,Luzern (LU),DE,,Der städtische Förderbeitrag für Photovoltaikanlagen beträgt 20 Prozent der Einmalvergütung des Bundes (pronovo.chCe lien externe va ouvrir une nouvelle fenêtre.) und wird zusätzlich ausbezahlt.,https://www.stadtluzern.ch/dienstleistungeninformation/6253,yes,720.0
+5095,PV,,,,,https://www.stadtluzern.ch/dienstleistungeninformation/76930,no,0.0
+2218,PV,,DE,,"PV-Anlagen:
+ Grundbeitrag Fr. 500.-
+ Leistungsbeitrag Fr. 100.- pro kWp (Kilowatt peak)",https://www.aarau.ch/leben/natur-und-umwelt/foerderprogramm.html/456,yes,1500.0
+2041,PV-EauCd,,DE,,"Thermische Solaranlagen:
+ Fr. 200.- pro m2 Bruttofläche",https://www.aarau.ch/leben/natur-und-umwelt/foerderprogramm.html/456,yes,4000.0
+2290,PV,,DE,Neigungswinkel von mindestens 75°,"PV-Anlagen für Winterstromproduktion
+Der Neubau von steilen Photovoltaik-Anlagen an Gebäuden mit einem Neigungswinkel von mindestens 75°
+gegenüber der Horizontalen wird mit CHF 300.- pro kWp
+unterstützt. Die Mindestleistung beträgt 3 kWp und die
+PV-Module müssen entspiegelt sein. Die PV-Anlage muss
+mit einem dreiphasigen Wechselrichter betrieben sein. Der
+Maximalbeitrag beträgt: CHF 3000.-",https://www.nesslau.ch/online-schalter/27980/detail,yes,3000.0
+2939,PV-EauCd,,DE,,Neuanlage auf bestehenden Gebäuden Förderbeiträge Beitrag bis 70kW Fr. 1’200.– plus 500.– pro kWth,https://www.ag.ch/de/themen/umwelt-natur/energie/foerderung/foerderung-von-massnahmen,yes,6200.0
+84,PV-EauCd,BS,DE,,"Beitragssätze
+Massnahmen
+Beitragssatz
+Grundbeitrag pro Neuanlage
+Fr. 2‘400.-
+Leistungsabhängiger Zusatzbeitrag
+Fr. 1’000.- / kW",https://www.bs.ch/wsu/aue/abteilung-energie/foerderbeitraege-energie/solaranlagen,yes,12400.0
+4605,PV,NE,FR,puissance supérieure à 90kWc.,"Une subvention d’un montant de CHF 11’000.-, en plus de
+la subvention fédérale Pronovo, pour la pose d’une installation
+solaire photovoltaïque d’une puissance supérieure à 90kWc.",https://www.ne.ch/autorites/DDTE/SENE/energie/Pages/Subventions-pour-photovolta%C3%8Fque-sur-les-grands-toits.aspx,yes,11000.0
+398,PV-EauCd,VD,FR,,"Cette subvention est allouée pour une nouvelle installation solaire thermique ou de l'extension d'une installation existante sur des bâtiments existants.
+
+Montants octroyés
+
+P < 3 kW ou Eau Chaude Sanitaire dans l’habitat individuel : 4'000 fr.
+P > 3 kW : 2'500 fr. + 500 fr./kW",https://www.vd.ch/prestation/12-demander-une-subvention-pour-des-capteurs-solaires-thermiques-m08,yes,7500.0
+3732,PV-EauCd,ZH,DE,,Fördermittel Thermische Solaranlage CHF 2400.- + 1000.-/kWth,https://energiefoerderung.zh.ch/internet/microsites/energie/de/home.html,yes,12400.0
+1171,PV,UR,DE,Modulneigung zwischen 60° und 90°,"PV-Anlage ab 2 kWp auf bestehenden Bauten,
+Modulneigung zwischen 60° und 90°
+Pauschal 1000.-, plus 250.- pro zusätzliches kWp
+(Maximalbeitrag pro Anlage 50’000.-). nicht
+kumulierbar mit Beitrag für Sanierung
+Gebäudehülle mit fassadenintegrierter PV. Budget
+für diese Massnahme maximal 100’000 Franken",https://www.ur.ch/dienstleistungen/7594,yes,3500.0
+151,PV-EauCd,UR,DE,,"Sonnenkollektor <70 kW auf
+bestehenden Bauten,
+Förderbeitrag von 2 bis 4 kW
+8000.-
+ab 4 kW plus 600.- pro
+zusätzliches kW",https://www.ur.ch/dienstleistungen/7594,yes,11600.0
+99999,PV,GE,FR,,"SIG vous offre une prime pour toute nouvelle installation photovoltaïque en autoconsommation sur le canton de Genève d'une puissance certifiée d'au moins 2 kWc et inférieure à 30 kWc (environ 100 m2) mise en service et certifiée par PRONOVO après le 1er janvier 2026.
+
+La Prime solaire 2026 vient s’ajouter à la subvention fédérale (rétribution unique pour les petites installations photovoltaïques – PRU). Elle équivaut à 25% de cette dernière.",https://ww2.sig-ge.ch/particuliers/offres/solaire/offres-solaires/maison-solaire,yes,900.0
+406,PV-EauCd,GE,FR,,"Subvention
+CHF 4'800.- + CHF 2'000.-/kW",https://www.ge-energie.ch/index.php/installations-de-capteurs-solaires-thermiques-70-kw,yes,24800.0
+5138,PV,BS,DE,,"ieser Betrag wird dort auf 100 Franken respektive 140 Franken verdoppelt, wo Sie auf dem sanierten Dach oder an der sanierten Fassade PV-Module anbringen. ",https://www.bs.ch/wsu/aue/abteilung-energie/aktion-solarkraftwerk-basel,no,0.0
+3669,PV,GL,DE,mit einer Neigung von 75° und grösser,"Für Fotovoltaikanlagen mit einer Neigung von 75° und grösser.
+Der Bonus wird nach dem Einreichen des rechtskräftigen
+Förderentscheids von Pronovo ausbezahlt.
+Neigungswinkelbonus 250 Fr./kWp",https://www.gl.ch/verwaltung/bau-und-umwelt/umwelt-wald-und-energie/umweltschutz-und-energie/energie/foerderprogramm.html/773,yes,2500.0
+2828,PV,GR,DE,"Globalstrahlung > 1250 kWh/m2*a (gemäss Potenzialkarte)
+• Neigungswinkel zwischen 60° und 90°
+• Exposition zwischen O – S – W (90°– 180° – 270°)
+• Mindestanlagengrösse: 3 kWp
+• Keine Verschattung (Siehe Anhang)",Der Beitrag wird über die installierte Anlagenleistung in Kilowattpeak folgend bemessen: Leistungsbeitrag: CHF 300/kWp Minimalbeitrag CHF 900 Maximalbeitrag CHF 200'000,https://www.gr.ch/DE/institutionen/verwaltung/diem/aev/foerderprogramme/photovoltaikanlagen/Photovoltaikanlagenfuerwinterstrom/Seiten/info.aspx,yes,3000.0
+412,PV,TI,IT,"Impianti messi in esercizio dal
+01.04.2022:
+o impianti di potenza nominale fino a
+30 kW: 50% della RU-CH;",,https://www4.ti.ch/generale/fer/fondo-energie-rinnovabili-fer,yes,1800.0
+410,PV-EauCd,TI,IT,"Condizioni: realizzazione su edifici esistenti, impianti repertoriati su
+www.listacollettori.ch e che dispongono della garanzia di prestazione
+valida (GPV), potenza nominale minima di 2 kWth. Impianti con
+potenza termica > 20 kWth devono essere dotati di un sistema di
+sorveglianza secondo le prescrizioni di Swisssolar
+• Contributo: Fr. 2’400.- + Fr. 1’000.-/kWth
+• Incentivo non cumulabile con gli incentivi di cui all’art. 8
+• Termine: 12 mesi dalla data della decisione di incentivo. Entro questo
+termine deve essere inoltrato il formulario di fine lavori completo alla
+Sezione della protezione dell’aria dell’acqua e del suolo (SPAAS)
+• Riferimenti: www.swissolar.ch",,https://www.ticinoenergia.ch/incentivi.html,yes,12400.0
