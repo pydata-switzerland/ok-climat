@@ -1,0 +1,3 @@
+subv_id,old_expected_10kW,new_expected_10kW,reason,status
+4605,11000,0,Only for installations of at least 90 kWp (about 450 m2); 10 kWp not eligible,proposed
+1171,3500,3000,Per additional kWp above the 2 kWp covered by the flat rate: 1000 + 250 x 8; consistent with thermal row 151 on same page,proposed
