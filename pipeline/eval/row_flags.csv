@@ -1,9 +1,20 @@
-subv_id,steep_only,size_condition,depends_on_building_type,requires_other_measure
-2290,1,,,
-1171,1,,,
-3669,1,,,
-2828,1,,,
-4605,,1,,
-2041,,,1,
-398,,,1,
-5138,,,,1
+subv_id,steep_only,size_condition,depends_on_building_type,requires_other_measure,evidence,notes
+118,,,,,Pflicht für die Förderung ist eine aktive Anlagenüberwachung (Monitoring). CHF 250.- pro kW installierte Leistung; CHF 750.- für die aktive Anlagenüberwachung,250 x 10 + 750 = 3250; monitoring is mandatory so it is included
+522,,,,,Der städtische Förderbeitrag für Photovoltaikanlagen beträgt 20 % der Einmalvergütung und der Zuschläge des Bundes (Pronovo),"20 % x 360 CHF/kW x 10 = 720; Pronovo basis 10 kW attached without federal Zuschläge; optional city bonuses (green roof, steep, anti-glare, heritage) excluded"
+2218,,,,,PV-Anlagen: Grundbeitrag 500 CHF; Leistungsbeitrag 100 CHF/kWp,500 + 100 x 10 = 1500; rates for integrated and facade PV not used
+2041,,,1,,"Thermische Solaranlagen: 200 CHF pro m2 Bruttofläche. Bedingungen: Einfamilienhaus: max. 10 m2, Zweifamilienhaus: max.12 m2","10 kWth = 20 m2, 200 x 20 = 4000; with the area cap it would be 2000 (single-family) or 2400 (two-family); open question"
+2290,1,,,,Neigungswinkel von mindestens 75° gegenüber der Horizontalen wird mit CHF 300.- pro kWp unterstützt. Die Mindestleistung beträgt 3 kWp ... Der Maximalbeitrag beträgt: CHF 3000.-,"300 x 10 = 3000, equal to the cap; steep-only (winter electricity); anti-glare modules and 3-phase inverter assumed met"
+2939,,,,,Beitrag bis 70kW Fr. 1’200.– plus 500.– pro kWth; Neuanlage oder Anlagenerweiterung ... auf bestehenden Gebäuden (Kollektoranlage nicht im Rahmen eines Neubaus installiert),1200 + 500 x 10 = 6200; only on existing buildings
+84,,,,,Grundbeitrag pro Neuanlage Fr. 2‘400.-; Leistungsabhängiger Zusatzbeitrag Fr. 1’000.- / kW; Der Förderbeitrag beträgt maximal 40 Prozent Ihrer gesamten Investitionskosten.,"2400 + 1000 x 10 = 12400; 40 % investment cap ignored (cost unknown); the canton funds only solar thermal, PV is federal"
+4605,,1,,,La puissance minimale doit être de 90 kWc,Flat 11000 only from 90 kWp (about 450 m2); 10 kWp not eligible so 0 (see corrections.csv)
+398,,,1,,P < 3 kW ou Eau Chaude Sanitaire dans l’habitat individuel : 4'000 fr.; P > 3 kW : 2'500 fr. + 500 fr./kW; Le montant octroyé est doublé dans le cas d’un assainissement énergétique simultané du toit ou de la façade,2500 + 500 x 10 = 7500; but hot water in a single-family house is a flat 4000 (open question); doubling with renovation excluded as optional
+3732,,,,,Thermische Solaranlage CHF 2400.- + 1000.-/kWth,2400 + 1000 x 10 = 12400; cap of max. 50 % of investment cost ignored
+1171,1,,,,"PV-Anlage ab 2 kWp auf bestehenden Bauten, Modulneigung zwischen 60° und 90°: Pauschal 1000.-, plus 250.- pro zusätzliches kWp",1000 + 250 x 8 = 3000 (only the kWp above 2); corrected from 3500; same logic as thermal row 151
+151,,,,,Förderbeitrag von 2 bis 4 kW 8000.-; ab 4 kW plus 600.- pro zusätzliches kW,8000 + 600 x 6 = 11600; only on existing buildings
+99999,,,,,puissance certifiée d'au moins 2 kWc et inférieure à 30 kWc ... mise en service et certifiée par PRONOVO après le 1er janvier 2026. ... Elle équivaut à 25% de cette dernière (PRU),"25 % x 360 x 10 = 900; SIG's own example (30 kWc, PRU 10800) confirms 360 CHF/kW; SIG is the Geneva utility, not the canton; subv_id 99999 is a placeholder"
+406,,,,,Installations de capteurs solaires thermiques ≤ 70 kW ... (sur des bâtiments existants); CHF 4'800.- + CHF 2'000.-/kW,4800 + 2000 x 10 = 24800; only on existing buildings
+5138,,,,1,"Sie erhalten einen zusätzlichen Förderbeitrag, wenn Sie eine energetische Dach- oder Fassadensanierung mit der Installation ...; ... wo Sie auf dem sanierten Dach oder an der sanierten Fassade PV-Module anbringen.","Paid only together with an energy renovation of roof or facade, so 0 for standalone PV; OK Climat's text is cut off"
+3669,1,,,,Für Fotovoltaikanlagen mit einer Neigung von 75° und grösser. Der Bonus wird nach dem Einreichen des rechtskräftigen Förderentscheids von Pronovo ausbezahlt. Neigungswinkelbonus 250 Fr./kWp,"250 x 10 = 2500; tilt bonus on top of Pronovo, paid after the Pronovo decision; steep-only"
+2828,1,,,,Neigungswinkel zwischen 60° und 90°; Mindestanlagengrösse: 3 kWp; Leistungsbeitrag: CHF 300/kWp Minimalbeitrag CHF 900,"300 x 10 = 3000; irradiation, orientation and shading conditions assumed met"
+412,,,,,impianti di potenza nominale fino a 30 kW: 50% della RU-CH,"50 % x 360 x 10 = 1800; feed-in remuneration (rimunerazione minima FER, 4.0 cts/kWh) excluded; source page has no CHF amounts (scraping risk)"
+410,,,,,Contributo: Fr. 2’400.- + Fr. 1’000.-/kWth; realizzazione su edifici esistenti,"2400 + 1000 x 10 = 12400; OK Climat's text column is empty, the info is only in condition; monitoring required only above 20 kWth"
