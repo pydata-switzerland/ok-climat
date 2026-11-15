@@ -1,0 +1,86 @@
+CREATE SCHEMA IF NOT EXISTS llm
+    AUTHORIZATION postgres;
+
+COMMENT ON SCHEMA llm
+    IS 'LLM tests';
+
+CREATE ROLE llm_test WITH
+  NOLOGIN
+  NOSUPERUSER
+  INHERIT
+  NOCREATEDB
+  NOCREATEROLE
+  NOREPLICATION
+  NOBYPASSRLS;
+  
+GRANT USAGE ON SCHEMA llm TO llm_test;
+
+
+CREATE SEQUENCE IF NOT EXISTS llm.subv_det_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE llm.subv_det_id_seq
+    OWNER TO postgres;
+
+GRANT USAGE ON SEQUENCE llm.subv_det_id_seq TO llm_test;
+
+GRANT ALL ON SEQUENCE llm.subv_det_id_seq TO postgres;
+
+CREATE TABLE IF NOT EXISTS llm.subv_llm_data
+(
+    type_subv character varying(8) COLLATE pg_catalog."default" NOT NULL,
+    llm_prompt character varying(1000) COLLATE pg_catalog."default",
+    keywords character varying(500) COLLATE pg_catalog."default",
+    subv_std character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT type_subv_pkey PRIMARY KEY (type_subv)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS llm.subv_llm_data
+    OWNER to postgres;
+
+GRANT UPDATE, DELETE, INSERT, SELECT ON TABLE llm.subv_llm_data TO llm_test;
+
+GRANT ALL ON TABLE llm.subv_llm_data TO postgres;
+
+insert into llm.subv_llm_data (type_subv, keywords, subv_std)
+values ('PV', 'Photovoltaik|PV-Anlagen|photovoltaïque|Solaranlage|Solarstrom|fotovoltaico', '10 KW');
+
+CREATE TABLE IF NOT EXISTS llm.subv_llm_detail
+(
+    subv_det_id bigint NOT NULL DEFAULT nextval('llm.subv_det_id_seq'::regclass),
+    subv_id integer,
+    la_id integer,
+    type_subv character varying(8) COLLATE pg_catalog."default",
+    search_url character varying(1000) COLLATE pg_catalog."default",
+    valid_url character varying(1000) COLLATE pg_catalog."default",
+    valid_pdf character varying(200) COLLATE pg_catalog."default",
+    markdown character varying(500000) COLLATE pg_catalog."default",
+    import_date date,
+    llm_response character varying(50000) COLLATE pg_catalog."default",
+    llm_base_value integer,
+    llm_date date,
+    valid boolean,
+    CONSTRAINT subv_detail_pkey PRIMARY KEY (subv_det_id),
+	CONSTRAINT type_subv FOREIGN KEY (type_subv)
+        REFERENCES llm.subv_llm_data (type_subv) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS llm.subv_llm_detail
+    OWNER to postgres;
+
+GRANT UPDATE, DELETE, INSERT, SELECT ON TABLE llm.subv_llm_detail TO llm_test;
+
+GRANT ALL ON TABLE llm.subv_llm_detail TO postgres;
+
+COMMENT ON TABLE llm.subv_llm_detail
+    IS 'détail sur les subventions pour recherche LLM';
