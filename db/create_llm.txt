@@ -3,9 +3,6 @@ CREATE SCHEMA IF NOT EXISTS llm
 
 COMMENT ON SCHEMA llm
     IS 'LLM tests';
-	
-GRANT USAGE ON SCHEMA llm TO llm_test;
-
 
 CREATE ROLE llm_test WITH
   NOLOGIN
@@ -16,6 +13,9 @@ CREATE ROLE llm_test WITH
   NOREPLICATION
   NOBYPASSRLS;
   
+GRANT USAGE ON SCHEMA llm TO llm_test;
+
+
 CREATE SEQUENCE IF NOT EXISTS llm.subv_det_id_seq
     INCREMENT 1
     START 1
@@ -49,7 +49,7 @@ GRANT UPDATE, DELETE, INSERT, SELECT ON TABLE llm.subv_llm_data TO llm_test;
 GRANT ALL ON TABLE llm.subv_llm_data TO postgres;
 
 insert into llm.subv_llm_data (type_subv, keywords, subv_std)
-values ('PV', 'Photovoltaik|PV-Anlagen|photovoltaïque|Solaranlage|Solarstrom|fotovoltaico', '10 KW')
+values ('PV', 'Photovoltaik|PV-Anlagen|photovoltaïque|Solaranlage|Solarstrom|fotovoltaico', '10 KW');
 
 CREATE TABLE IF NOT EXISTS llm.subv_llm_detail
 (
